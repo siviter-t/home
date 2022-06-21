@@ -1,0 +1,50 @@
+[user]
+name = Taylor Siviter
+email = taylor@siviter.xyz
+
+[color]
+ui = auto
+
+[gui]
+encoding = utf-8
+
+[fetch]
+prune = true
+tags = true
+
+[alias]
+st = status
+ch = checkout
+br = branch
+sw = switch
+br = branch
+
+co = commit
+com = commit -m
+
+rb = rebase
+rbc = rebase --continue
+rba = rebase --abort
+co-undo = reset --soft HEAD^                # Soft undo last commit
+co-redo = commit -c ORIG_HEAD               # Redo last softly undone commit
+reset-down = reset --hard HEAD              # Hard reset to latest local HEAD
+reset-up = reset --hard HEAD@{upstream}     # Hard reset to latest upstream HEAD (i.e., at origin)
+
+lg = log --graph --color
+lgs = log --graph --color --oneline
+lga = log --graph --color --oneline --full-history --all
+
+# Usage: git ch-pr <pr_number> <upstream:-origin>
+ch-pr = !sh -c 'git fetch ${1:-origin} pull/$0/head && git checkout FETCH_HEAD'
+
+# Help
+list = !sh -c 'git config --get-regexp "alias.*"'
+
+[branch]
+autosetuprebase = always
+
+[filter "lfs"]
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
